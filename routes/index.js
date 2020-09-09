@@ -3,13 +3,13 @@ const adminController = require('../controllers/adminControllers')
 const userController = require('../controllers/userController')
 
 module.exports = (app, passport) => {
-  const authenticate = (req, res, next) => {
+  const authenticated = (req, res, next) => {
     if (req.isAuthenticated()) {
       return next()
     }
     res.redirect('/signin')
   }
-  const authenticateAdmin = (req, res, next) => {
+  const authenticatedAdmin = (req, res, next) => {
     if (req.isAuthenticated()) {
       if (req.user.isAdmin) { return next() }
       return res.redirect('/')
@@ -17,12 +17,13 @@ module.exports = (app, passport) => {
     res.redirect('/signin')
   }
 
-  app.get('/', authenticate, (req, res) => res.redirect('/restaurants'))
-  app.get('/restaurants', authenticate, restController.getRestaurants)
+  app.get('/', authenticated, (req, res) => res.redirect('/restaurants'))
+  app.get('/restaurants', authenticated, restController.getRestaurants)
 
-  app.get('/admin', authenticateAdmin, (req, res) => res.redirect('/admin/restaurants'))
-  app.get('/admin/restaurants', authenticateAdmin, adminController.getRestaurants)
-  app.get('/admin/restaurants/create', authenticateAdmin, adminController.createRestaurant)
+  app.get('/admin', authenticatedAdmin, (req, res) => res.redirect('/admin/restaurants'))
+  app.get('/admin/restaurants', authenticatedAdmin, adminController.getRestaurants)
+  app.get('/admin/restaurants/create', authenticatedAdmin, adminController.createRestaurant)
+  app.post('/admin/restaurants', authenticatedAdmin, adminController.postRestaurant)
 
   app.get('/signUp', userController.signUpPage)
   app.post('/signUp', userController.signUp)
