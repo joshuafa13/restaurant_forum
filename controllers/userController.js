@@ -30,17 +30,17 @@ const userController = {
     }
   },
 
-  signInPage: (req, res) => {
-    return res.render('signIn')
+  signinPage: (req, res) => {
+    return res.render('signin')
   },
-  signIn: (req, res) => {
+  signin: (req, res) => {
     req.flash('success_messages', '成功登錄！')
     res.redirect('/restaurants')
   },
   logout: (req, res) => {
     req.flash('success_messages', '成功登出！')
     req.logout()
-    res.redirect('/signIn')
+    res.redirect('/signin')
   }
 }
 
