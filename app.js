@@ -10,7 +10,7 @@ const methodOverride = require('method-override')
 const app = express()
 const port = process.env.PORT || 3000
 
-app.engine('handlebars', handlebars())
+app.engine('handlebars', handlebars({ helpers: require('./config/handlebars-helpers') }))
 app.set('view engine', 'handlebars')
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }))
