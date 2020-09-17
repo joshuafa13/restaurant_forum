@@ -1,14 +1,28 @@
 <div class="card">
   <div class="card-body row">
-    <div class="col-4">
-      <img class="card-img-top" src="{{user.image}}" alt="Card image cap">
+    <div class="col-3">
+      <img class="card-img-top" style="width:200px" src="{{user.image}}" alt="">
     </div>
-    <div class="col-8">
+    <div class="col-9">
       <h5 class="card-title">{{user.name}}</h5>
       <p class="card-text">{{user.email}}</p>
       {{#ifCond user.id UserId}}
         <a href="/users/{{user.id}}/edit" class="btn btn-primary">Edit</a>
       {{/ifCond}}
     </div>
+  </div>
+</div>
+<br>
+<div class="card">
+  <div class="card-header">
+    {{user.Comments.length}}已評論餐廳
+  </div>
+  <div class="card-body">
+    <blockquote class="blockquote mb-0">
+      {{#each user.Comments}}
+        <a href="/restaurants/{{this.Restaurant.id}}"><img style="width:80px" src="{{this.Restaurant.image}}"
+            alt=""></a>
+      {{/each}}
+    </blockquote>
   </div>
 </div>
