@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Comment.belongsTo(models.User)
-      Comment.belongsTo(models.Restaurant)
+      Comment.belongsTo(models.Restaurant, { constraints: false })
     }
   };
   Comment.init({
