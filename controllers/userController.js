@@ -6,6 +6,7 @@ const Restaurant = db.Restaurant
 const Favorite = db.Favorite
 const Like = db.Like
 const imgur = require('imgur-node-api')
+const { getUsers } = require('./adminController')
 const IMGUR_CLIENT_ID = 'c8b9a2211198b38'
 
 const userController = {
@@ -150,6 +151,24 @@ const userController = {
         })
     })
   },
+
+  getTopUser: (req, res) => {
+    return User.findAll({
+      include: [
+        { model: User, as: 'Followers' }
+      ]
+    }).then(users => {
+      // console.log(users)
+      users = users.map(user => ({
+        ...user.dataValues,
+        FollowerCount: user.Followers.length,
+        isFollowed: req.user.Followings.map(d => d.id).includes(user.id)
+      }))
+      // console.log(users)
+      users = users.sort((a, b) => b.FollowerCount - a.FollowerCount)
+      return res.render('topUser', { users })
+    })
+  }
 }
 
 module.exports = userController
