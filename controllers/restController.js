@@ -103,7 +103,7 @@ const restController = {
       include: [Comment, Category]
     })
       .then(restaurant => {
-        console.log(restaurant.toJSON())
+        // console.log(restaurant.toJSON())
         return res.render('dashboard', {
           restaurant: restaurant.toJSON()
         })
@@ -116,7 +116,7 @@ const restController = {
         { model: User, as: 'FavoritedUsers' }
       ]
     }).then(restaurants => {
-      console.log(req.user.FavoritedRestaurants)
+      // console.log(req.user.FavoritedRestaurants)
       restaurants = restaurants.map(r => ({
         ...r.dataValues,
         description: r.description.substring(0, 50),

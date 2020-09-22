@@ -87,7 +87,7 @@ const userController = {
               image: file ? img.data.link : null,
             })
               .then((user) => {
-                console.log(img.data)
+                // console.log(img.data)
                 req.flash('success_messages', 'restaurant was updated successfully')
                 res.redirect(`/users/${user.id}`)
               })
