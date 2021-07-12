@@ -1,4 +1,4 @@
-# restaurant_forum
+# Restaurant Directory
 
 ## Test Accounts
 |Account|Email|Password|
